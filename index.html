@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101d35">
+<title>Digital Learn 2.0 — Digital Services Learning Hub</title>
+<style>
+:root{--navy:#101d35;--navy2:#172a49;--navy3:#20395e;--teal:#2dd4bf;--teal-dark:#0f9e91;--ink:#17243b;--muted:#718096;--bg:#f4f7fb;--line:#e3e9f1;--white:#fff;--shadow:0 14px 40px rgba(16,29,53,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,select{font:inherit}button,a{transition:.18s}a{color:#0b8278;text-decoration:none}a:hover{text-decoration:underline}.hidden{display:none!important}
+.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:252px;background:var(--navy);color:#e9f2ff;padding:25px 17px;display:flex;flex-direction:column;z-index:5}.brand{display:flex;align-items:center;gap:11px;padding:0 9px 28px;font-weight:850;font-size:1.16rem;letter-spacing:-.04em;color:white}.brand-mark{display:grid;place-items:center;background:linear-gradient(135deg,#2dd4bf,#1685a7);color:#08283b;width:40px;height:40px;border-radius:13px;font-size:1.1rem;font-weight:950}.brand small{display:block;color:#91a9c9;font-weight:600;font-size:.68rem;letter-spacing:.09em;margin-top:3px}.nav-label{font-size:.68rem;color:#8198b8;text-transform:uppercase;letter-spacing:.12em;font-weight:800;padding:12px 12px 9px}.nav{display:grid;gap:5px}.nav button{display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#b9c8dd;padding:12px;border-radius:12px;text-align:left;cursor:pointer;font-weight:650;font-size:.9rem}.nav button:hover,.nav button.active{background:#20395e;color:white}.nav button.active .nav-ico{color:var(--teal)}.nav-ico{width:22px;text-align:center;font-size:1.05rem}.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff1a;padding:17px 9px 0;color:#91a9c9;font-size:.78rem;line-height:1.6}.safe-pill{display:inline-flex;align-items:center;gap:6px;color:#a9f5e8;background:#153e4c;padding:7px 10px;border-radius:99px;font-size:.73rem;font-weight:750;margin-top:10px}
+.main{margin-left:252px;min-height:100vh}.mobilebar{display:none;background:var(--navy);color:white;padding:14px 5%;align-items:center;justify-content:space-between}.content{width:min(1250px,100%);margin:auto;padding:28px clamp(18px,3vw,42px) 50px}.topline{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:23px}.crumb{color:var(--muted);font-size:.86rem}.top-actions{display:flex;align-items:center;gap:12px}.user-chip{display:flex;align-items:center;gap:9px;background:white;border:1px solid var(--line);padding:7px 12px 7px 7px;border-radius:99px;font-weight:750;font-size:.85rem}.mini-avatar{display:grid;place-items:center;background:#d6f8f2;color:#0d766d;width:34px;height:34px;border-radius:50%;font-weight:900}
+.register-screen{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;padding:clamp(20px,5vw,70px);background:linear-gradient(135deg,#0b172d,#142d50)}.register-brand{color:white;font-size:1.2rem;font-weight:900;display:flex;gap:10px;align-items:center}.register-hero{color:white;max-width:600px;padding:20px}.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#1b4554;color:#a9f5e8;padding:8px 12px;border-radius:99px;font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;font-weight:850}.register-hero h1{font-size:clamp(2.7rem,5vw,4.7rem);line-height:1;letter-spacing:-.06em;margin:25px 0 20px}.register-hero p{color:#c0cee1;line-height:1.8;max-width:530px}.features{display:grid;gap:13px;margin-top:30px}.feature{display:flex;align-items:center;gap:12px;color:#e3edf9}.feature span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#ffffff12;color:var(--teal)}.form-card{background:white;border-radius:25px;padding:clamp(24px,4vw,42px);box-shadow:0 22px 70px #0003;max-width:520px;width:100%;justify-self:center}.form-card h2{font-size:1.85rem;letter-spacing:-.04em;margin:0 0 8px}.sub{color:var(--muted);line-height:1.6;margin:0 0 25px}.field{display:grid;gap:8px;margin:17px 0}.field label{font-size:.88rem;font-weight:780}.field input,.field select{width:100%;padding:14px;border:1px solid #d9e1ec;border-radius:12px;background:#fbfdff;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--teal-dark);box-shadow:0 0 0 3px #2dd4bf25}.consent{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:.8rem;line-height:1.55;margin:19px 0}.consent input{margin-top:4px}.btn{border:0;background:var(--teal);color:#082b3b;font-weight:850;border-radius:12px;padding:13px 17px;cursor:pointer}.btn:hover{background:#5eead4;transform:translateY(-1px)}.btn.full{width:100%}.btn.secondary{background:var(--navy);color:white}.small{font-size:.8rem;color:var(--muted);line-height:1.55}.notice{padding:12px 14px;border-radius:12px;background:#effbf9;color:#23665e;font-size:.82rem;line-height:1.55;margin-top:15px}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:18px;background:linear-gradient(120deg,#101d35,#203f65);border-radius:25px;color:white;padding:clamp(25px,4vw,42px);position:relative;overflow:hidden}.welcome:after{content:"";position:absolute;width:270px;height:270px;border:1px solid #ffffff25;border-radius:50%;right:-60px;top:-125px;box-shadow:0 0 0 38px #ffffff08,0 0 0 78px #ffffff06}.welcome h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.055em;margin:14px 0 10px}.welcome p{color:#c6d7eb;margin:0;line-height:1.6}.welcome .eyebrow{background:#164653}.avatar{z-index:1;display:grid;place-items:center;width:70px;height:70px;border-radius:23px;background:#2dd4bf;color:#082b3b;font-size:1.8rem;font-weight:950;flex-shrink:0}
+.progress-panel{padding:22px 24px;margin-top:18px}.panel,.module-card{background:white;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.progress-row{display:flex;justify-content:space-between;gap:15px;font-weight:800}.track{height:9px;background:#e9eef5;border-radius:99px;margin-top:15px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,#0f9e91,#2dd4bf);border-radius:99px;transition:width .3s}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}.stat{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fbfcfe}.stat strong{display:block;font-size:1.45rem;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:.79rem}.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:31px 0 15px}.section-head h2{font-size:1.35rem;letter-spacing:-.035em;margin:0}.section-head p{color:var(--muted);font-size:.87rem;margin:5px 0 0}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.module-card{padding:21px;box-shadow:none;display:flex;flex-direction:column;min-height:235px}.module-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:1.4rem;background:#e2faf5;color:#0b776c}.module-card:nth-child(2) .module-icon{background:#e5efff;color:#275ab3}.module-card:nth-child(3) .module-icon{background:#f2eaff;color:#7846b4}.module-card h3{margin:15px 0 7px}.module-card p{color:var(--muted);font-size:.88rem;line-height:1.6;margin:0 0 17px;flex:1}.text-btn{border:0;background:none;padding:0;color:#0b8278;font-weight:850;text-align:left;cursor:pointer}.two-col{display:grid;grid-template-columns:1.08fr .92fr;gap:15px}.panel{padding:22px;box-shadow:none}.panel h3{margin:0 0 8px}.quiz-q{font-weight:800;margin:20px 0 12px}.answer{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:12px;margin:8px 0;cursor:pointer;font-size:.9rem}.answer input{margin-top:4px;accent-color:#0f9e91}.answer:has(input:checked){border-color:#55cabc;background:#f1fcfa}.result{padding:13px;border-radius:12px;margin-top:12px;background:#e9fbf5;color:#126b4b;font-weight:750}.link-list{display:grid;gap:10px}.quick-link{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;background:#f8fbff;border:1px solid var(--line);border-radius:12px;color:var(--ink);font-weight:750;font-size:.88rem}.quick-link span{color:var(--muted);font-size:.76rem;font-weight:550}.password-output{background:#f0fbf9;border:1px dashed #79cfc4;border-radius:12px;padding:14px;font-family:ui-monospace,monospace;font-size:1rem;font-weight:850;word-break:break-all;min-height:48px;margin-top:12px}.faq-item{border-top:1px solid var(--line);padding:15px 0}.faq-item summary{cursor:pointer;font-weight:800}.faq-item p{color:var(--muted);font-size:.9rem;line-height:1.65;margin-bottom:0}.footer{margin-top:35px;padding:22px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;line-height:1.7}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#101d35;color:white;padding:13px 18px;border-radius:12px;z-index:20;max-width:90%;box-shadow:var(--shadow);font-size:.9rem}.modal-backdrop{position:fixed;inset:0;background:#061327bd;z-index:15;display:grid;place-items:center;padding:18px}.modal{background:white;max-width:650px;width:100%;max-height:85vh;overflow:auto;padding:27px;border-radius:22px}.modal-head{display:flex;justify-content:space-between;gap:12px}.modal h2{margin:7px 0}.modal p,.modal li{color:#56657a;line-height:1.75}.close{border:0;background:#eef2f7;border-radius:10px;padding:8px 12px;cursor:pointer;height:38px}
+@media(max-width:1000px){.sidebar{width:220px}.main{margin-left:220px}.module-grid{grid-template-columns:repeat(2,1fr)}.register-screen{grid-template-columns:1fr 1fr;padding:25px}.register-hero h1{font-size:3rem}}
+@media(max-width:760px){.sidebar{display:none}.main{margin-left:0}.mobilebar{display:flex}.content{padding:20px 4% 40px}.register-screen{grid-template-columns:1fr;padding:22px 5%;gap:20px}.register-hero{padding:12px 0}.register-hero h1{font-size:2.8rem}.register-hero .features{grid-template-columns:1fr 1fr}.form-card{max-width:none}.topline{margin-bottom:15px}.module-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
+@media(max-width:480px){.module-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}.welcome{padding:23px}.avatar{width:52px;height:52px;border-radius:16px;font-size:1.3rem}.register-hero h1{font-size:2.4rem}.register-hero .features{grid-template-columns:1fr}.top-actions .user-chip{display:none}.section-head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<section id="registerScreen" class="register-screen">
+  <div class="register-hero">
+    <div class="register-brand"><span class="brand-mark">DL</span><span>Digital Learn 2.0</span></div>
+    <div style="margin-top:52px"><span class="eyebrow">✦ DIGITAL CONFIDENCE FOR EVERYONE</span>
+    <h1>Government digital services, made easier.</h1>
+    <p>Learn how to navigate DigiLocker, Aadhaar and PAN services through clear guides, short quizzes and practical safety tips. Learn at your own pace, with confidence.</p></div>
+    <div class="features">
+      <div class="feature"><span>▣</span><span>Simple, step-by-step learning</span></div>
+      <div class="feature"><span>✓</span><span>Quizzes and progress tracking</span></div>
+      <div class="feature"><span>↗</span><span>Links to official portals</span></div>
+      <div class="feature"><span>♧</span><span>Privacy and scam-awareness tips</span></div>
+    </div>
+  </div>
+  <div class="form-card">
+    <h2>Create your learning profile</h2><p class="sub">Tell us a little about yourself to get started. No Aadhaar or PAN number is needed.</p>
+    <form id="registerForm">
+      <div class="field"><label for="fullName">Full name</label><input id="fullName" maxlength="100" placeholder="e.g. Alex Sharma" autocomplete="name" required></div>
+      <div class="field"><label for="ageGroup">Age group</label><select id="ageGroup" required><option value="">Choose age group</option><option>Under 18</option><option>18–24</option><option>25–34</option><option>35–44</option><option>45–59</option><option>60 and above</option></select></div>
+      <div class="field"><label for="education">Education level</label><select id="education" required><option value="">Choose education level</option><option>No formal education</option><option>Primary school</option><option>Secondary school</option><option>Higher secondary</option><option>Diploma / ITI</option><option>Undergraduate</option><option>Postgraduate or above</option><option>Prefer not to say</option></select></div>
+      <label class="consent"><input type="checkbox" id="consent" required><span>I agree that my registration details and learning progress may be recorded in the project's Google Sheet for learning evaluation. I will not submit Aadhaar/PAN numbers, OTPs, or document files.</span></label>
+      <button class="btn full" type="submit">Start learning&nbsp; →</button>
+      <div class="notice">Privacy-first learning. Digital Learn 2.0 is an educational website, not a government portal or service provider.</div>
+    </form>
+  </div>
+</section>
+
+<div id="app" class="app hidden">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-mark">DL</span><span>Digital Learn 2.0<small>LEARN · PRACTISE · GROW</small></span></div>
+  <div class="nav-label">Workspace</div>
+  <nav class="nav" aria-label="Main navigation">
+    <button class="active" data-target="overview"><span class="nav-ico">⌂</span>Dashboard</button>
+    <button data-target="learning"><span class="nav-ico">▣</span>Learning modules</button>
+    <button data-target="quizSection"><span class="nav-ico">✓</span>Knowledge quiz</button>
+    <button data-target="quickLinks"><span class="nav-ico">↗</span>Official quick links</button>
+    <button data-target="passwordTool"><span class="nav-ico">⌑</span>PDF password helper</button>
+    <button data-target="faqSection"><span class="nav-ico">?</span>Help & FAQ</button>
+  </nav>
+  <div class="sidebar-bottom">Learn safely. Use official portals for actual services.<br><span class="safe-pill">● Privacy-first learning</span></div>
+</aside>
+<div class="main">
+  <div class="mobilebar"><div class="brand"><span class="brand-mark">DL</span> Digital Learn 2.0</div><button class="btn" id="mobileNavBtn">Navigate ↓</button></div>
+  <div class="content">
+    <div class="topline"><div class="crumb">Learning space / <strong id="crumbTitle">Dashboard</strong></div><div class="top-actions"><span class="small">Your personal learning space</span><div class="user-chip"><span class="mini-avatar" id="miniAvatar">A</span><span id="userChipName">Learner</span></div></div></div>
+    <section id="overview">
+      <div class="welcome"><div><span class="eyebrow">YOUR DIGITAL LEARNING JOURNEY</span><h1 id="welcomeTitle">Hey Alex! Welcome!!!</h1><p>Build your digital confidence one small step at a time.</p></div><div class="avatar" id="avatar">A</div></div>
+      <div class="panel progress-panel">
+        <div class="progress-row"><span>Your learning journey</span><span id="progressText">0% complete</span></div>
+        <div class="track" id="progressBar" role="progressbar" aria-label="Learning progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="progressFill"></div></div>
+        <div class="stats"><div class="stat"><strong id="modulesDone">0/3</strong><span>Modules completed</span></div><div class="stat"><strong id="bestScore">—</strong><span>Latest quiz score</span></div><div class="stat"><strong id="learningStatus">Getting started</strong><span>Learning status</span></div></div>
+      </div>
+    </section>
+    <section id="learning">
+      <div class="section-head"><div><h2>Explore learning modules</h2><p>Friendly guides to the digital services you use every day.</p></div></div>
+      <div class="module-grid">
+        <article class="module-card"><div class="module-icon">🗂️</div><h3>DigiLocker basics</h3><p>Learn about issued digital documents, account access and safe sharing.</p><button class="text-btn" onclick="openModule('digilocker')">Explore module →</button></article>
+        <article class="module-card"><div class="module-icon">🪪</div><h3>Aadhaar services</h3><p>Understand UIDAI services, updates, e-Aadhaar and safe downloads.</p><button class="text-btn" onclick="openModule('aadhaar')">Explore module →</button></article>
+        <article class="module-card"><div class="module-icon">📄</div><h3>PAN services</h3><p>Learn about PAN, application routes, corrections and scam prevention.</p><button class="text-btn" onclick="openModule('pan')">Explore module →</button></article>
+      </div>
+    </section>
+    <section id="quizSection">
+      <div class="section-head"><div><h2>Knowledge check</h2><p>Take a quick quiz to reinforce what you have learned.</p></div></div>
+      <div class="panel">
+        <h3>Digital services mini quiz</h3><p class="small">Select one answer per question. Your score can be recorded in the connected Google Sheet.</p>
+        <form id="quizForm">
+          <div class="quiz-q">1. Which platform provides access to digital documents issued by participating organisations?</div>
+          <label class="answer"><input type="radio" name="q1" value="a" required> DigiLocker</label><label class="answer"><input type="radio" name="q1" value="b"> An unknown link sent by a stranger</label>
+          <div class="quiz-q">2. What should you do with an OTP?</div>
+          <label class="answer"><input type="radio" name="q2" value="a" required> Share it with a caller claiming to be support</label><label class="answer"><input type="radio" name="q2" value="b"> Keep it private and use it only in a trusted official flow</label>
+          <div class="quiz-q">3. Where should you begin for Aadhaar-related services?</div>
+          <label class="answer"><input type="radio" name="q3" value="a" required> UIDAI's official website</label><label class="answer"><input type="radio" name="q3" value="b"> An unfamiliar third-party site</label>
+          <button class="btn" type="submit">Submit quiz</button><div id="quizResult" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+    <section id="quickLinks">
+      <div class="section-head"><div><h2>Official quick links</h2><p>Start from verified portals when completing real services.</p></div></div>
+      <div class="panel link-list">
+        <a class="quick-link" href="https://www.digilocker.gov.in/" target="_blank" rel="noopener noreferrer">DigiLocker <span>Official portal ↗</span></a>
+        <a class="quick-link" href="https://uidai.gov.in/" target="_blank" rel="noopener noreferrer">UIDAI / Aadhaar <span>Official portal ↗</span></a>
+        <a class="quick-link" href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener noreferrer">Income Tax e-Filing <span>Official portal ↗</span></a>
+        <a class="quick-link" href="https://www.protean-tinpan.com/" target="_blank" rel="noopener noreferrer">PAN services — Protean <span>Service provider ↗</span></a>
+        <div class="notice">Check the website address before entering personal information. Never share OTPs or account passwords with someone who contacts you unexpectedly.</div>
+      </div>
+    </section>
+    <section id="passwordTool">
+      <div class="section-head"><div><h2>e-Aadhaar PDF password helper</h2><p>This tool works locally in your browser.</p></div></div>
+      <div class="panel">
+        <p class="small">The commonly used e-Aadhaar PDF password format is the first four letters of the name in CAPITAL letters followed by the year of birth (YYYY). Follow the instructions supplied with your PDF if they differ. Inputs for this helper are not sent to the Google Sheet.</p>
+        <div class="two-col"><div class="field"><label for="aadhaarName">Name as printed on Aadhaar</label><input id="aadhaarName" placeholder="Enter name locally" autocomplete="off" maxlength="100"></div><div class="field"><label for="birthYear">Year of birth (YYYY)</label><input id="birthYear" inputmode="numeric" placeholder="e.g. 1998" maxlength="4" autocomplete="off"></div></div>
+        <button class="btn" type="button" id="generatePassword">Generate password</button><div class="password-output" id="passwordOutput" aria-live="polite">Your password will appear here.</div><button class="text-btn" type="button" id="copyPassword" style="margin-top:12px">Copy password</button>
+      </div>
+    </section>
+    <section id="faqSection">
+      <div class="section-head"><div><h2>Help & frequently asked questions</h2><p>Quick answers to common concerns.</p></div></div>
+      <div class="panel">
+        <details class="faq-item"><summary>Is Digital Learn 2.0 an official government website?</summary><p>No. It is an independent educational learning project and is not affiliated with UIDAI, DigiLocker, the Income Tax Department or any government agency.</p></details>
+        <details class="faq-item"><summary>Will this website apply for Aadhaar or PAN on my behalf?</summary><p>No. It explains common steps. Applications, updates and downloads must be completed through the appropriate official portal or authorised channel.</p></details>
+        <details class="faq-item"><summary>Why should I never share an OTP?</summary><p>An OTP can authorise access or a transaction. Never share it with callers, agents in unsolicited messages or anyone who says they need it to help you.</p></details>
+        <details class="faq-item"><summary>What data can be saved in the Google Sheet?</summary><p>With the integration configured, the project can record your name, age group, education level, quiz score and module completion status. It should not collect Aadhaar/PAN numbers, OTPs or document files.</p></details>
+        <details class="faq-item"><summary>Will my progress follow me to another device?</summary><p>This starter keeps the current profile and progress in this browser and sends activity events to the Sheet when configured. Cross-device progress requires a properly designed sign-in and backend.</p></details>
+      </div>
+    </section>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap"><span class="small" id="sheetStatus">Google Sheets: not configured</span><button class="text-btn" id="resetProfile" type="button">Sign out / reset this browser</button></div>
+    <footer class="footer">© 2026 Digital Learn 2.0 · Educational demo only. Not a government service provider. Check current processes and fees on official portals.</footer>
+  </div>
+</div>
+</div>
+<div id="moduleModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><div><span class="small">LEARNING MODULE</span><h2 id="modalTitle">Module</h2></div><button class="close" onclick="closeModule()" aria-label="Close module">✕</button></div><div id="modalBody"></div><button class="btn" id="completeModule" type="button">Mark module complete ✓</button></div></div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+/* Add the deployed Apps Script /exec URL here to enable Google Sheets logging. */
+const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyFEliEtVWQ9go6kLhSWquPG3sHgSy9YV2-EBlfyC5cKqL_lq9MPjtFKJQLjH4khQw/exec";
+const STORAGE_KEY="digital_learn_2_profile_v1";
+let profile=null,currentModule=null;
+const modules={
+ digilocker:{title:"DigiLocker basics",body:`<p><strong>What it is:</strong> DigiLocker is a Government of India digital platform for accessing and sharing digital documents from participating issuers.</p><ol><li>Open the <a href="https://www.digilocker.gov.in/" target="_blank" rel="noopener">official DigiLocker website</a> or official app listing.</li><li>Follow the current sign-in or account creation instructions shown by the official service.</li><li>Look for documents under issued documents or the relevant issuer; availability depends on issuer and records.</li><li>Review the recipient and consent screen carefully before sharing a document.</li></ol><p><strong>Safety tip:</strong> Never tell anyone your OTP or account PIN. Avoid unexpected login links.</p>`},
+ aadhaar:{title:"Aadhaar services",body:`<p><strong>What it is:</strong> UIDAI is the authority responsible for Aadhaar. Its website provides information and links to available services.</p><ol><li>Start at <a href="https://uidai.gov.in/" target="_blank" rel="noopener">uidai.gov.in</a> and choose the service you need.</li><li>Read eligibility, document requirements and any applicable fee before starting.</li><li>Use the official portal or an authorised centre for updates or downloads.</li><li>Keep an acknowledgement or service request number if one is provided.</li></ol><p><strong>Safety tip:</strong> Do not share Aadhaar details or OTPs with unknown callers.</p>`},
+ pan:{title:"PAN services",body:`<p><strong>What it is:</strong> PAN is used for tax-related and specified financial identification in India.</p><ol><li>Start at the <a href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">Income Tax e-Filing portal</a> or an authorised PAN service provider.</li><li>Confirm whether you need a new PAN, correction, reprint or another service.</li><li>Check current document requirements, charges and application tracking instructions.</li><li>Keep your acknowledgement number for tracking.</li></ol><p><strong>Safety tip:</strong> Check the web address and be cautious of unsolicited offers promising guaranteed approval.</p>`}
+};
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3200)}
+async function sendToSheet(payload){
+ if(!SHEET_WEB_APP_URL){document.getElementById("sheetStatus").textContent="Google Sheets: not configured — follow SETUP.md";return false}
+ try{await fetch(SHEET_WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});document.getElementById("sheetStatus").textContent="Google Sheets: event submitted (verify in spreadsheet)";return true}
+ catch(e){document.getElementById("sheetStatus").textContent="Google Sheets: submission failed; local progress is saved";return false}
+}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(profile))}
+function render(){
+ document.getElementById("registerScreen").classList.add("hidden");document.getElementById("app").classList.remove("hidden");
+ const first=profile.fullName.trim().split(/\s+/)[0];document.getElementById("welcomeTitle").textContent=`Hey ${first}! Welcome!!!`;
+ document.getElementById("avatar").textContent=first.charAt(0).toUpperCase();document.getElementById("miniAvatar").textContent=first.charAt(0).toUpperCase();document.getElementById("userChipName").textContent=first;progress();
+}
+function progress(){
+ const n=profile.completedModules.length,pct=Math.round(n/3*100);
+ document.getElementById("modulesDone").textContent=`${n}/3`;document.getElementById("progressText").textContent=`${pct}% complete`;document.getElementById("progressFill").style.width=pct+"%";document.getElementById("progressBar").setAttribute("aria-valuenow",pct);
+ document.getElementById("bestScore").textContent=profile.latestScore===null?"—":`${profile.latestScore}/3`;document.getElementById("learningStatus").textContent=n===3?"Completed":n?"In progress":"Getting started";
+}
+document.getElementById("registerForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!document.getElementById("consent").checked)return;
+ profile={fullName:document.getElementById("fullName").value.trim().replace(/\s+/g," ").slice(0,100),ageGroup:document.getElementById("ageGroup").value,education:document.getElementById("education").value,completedModules:[],latestScore:null,registeredAt:new Date().toISOString()};
+ save();render();await sendToSheet({type:"registration",...profile});toast("Welcome to Digital Learn 2.0!");
+});
+function openModule(id){currentModule=id;const m=modules[id];document.getElementById("modalTitle").textContent=m.title;document.getElementById("modalBody").innerHTML=m.body;document.getElementById("completeModule").textContent=profile.completedModules.includes(id)?"Module completed ✓":"Mark module complete ✓";document.getElementById("moduleModal").classList.remove("hidden")}
+function closeModule(){document.getElementById("moduleModal").classList.add("hidden")}
+document.getElementById("completeModule").addEventListener("click",async()=>{
+ if(!profile.completedModules.includes(currentModule)){profile.completedModules.push(currentModule);save();progress();await sendToSheet({type:"module_completion",fullName:profile.fullName,module:currentModule,completedAt:new Date().toISOString(),completedModules:profile.completedModules.join(",")});toast("Module marked complete!")}closeModule();
+});
+document.getElementById("quizForm").addEventListener("submit",async e=>{
+ e.preventDefault();const f=new FormData(e.target);let score=0;if(f.get("q1")==="a")score++;if(f.get("q2")==="b")score++;if(f.get("q3")==="a")score++;
+ profile.latestScore=score;save();progress();const r=document.getElementById("quizResult");r.className="result";r.textContent=`You scored ${score} out of 3. ${score===3?"Excellent work!":score===2?"Good job — review the safety tips once more.":"Keep learning and try again after reviewing the modules."}`;
+ await sendToSheet({type:"quiz_score",fullName:profile.fullName,score,total:3,submittedAt:new Date().toISOString()});
+});
+document.getElementById("generatePassword").addEventListener("click",()=>{
+ const name=document.getElementById("aadhaarName").value.trim(),year=document.getElementById("birthYear").value.trim(),out=document.getElementById("passwordOutput");
+ if(name.replace(/\s/g,"").length<4||!/^\d{4}$/.test(year)){out.textContent="Enter a name with at least 4 letters and a 4-digit birth year.";return}
+ out.textContent=name.replace(/\s/g,"").slice(0,4).toUpperCase()+year;
+});
+document.getElementById("copyPassword").addEventListener("click",async()=>{
+ const t=document.getElementById("passwordOutput").textContent;if(!t||t.includes("appear")||t.startsWith("Enter a name")){toast("Generate a password first.");return}
+ try{await navigator.clipboard.writeText(t);toast("Password copied.")}catch(e){toast("Copy unavailable here. Select the password and copy it manually.")}
+});
+document.getElementById("resetProfile").addEventListener("click",()=>{
+ if(confirm("Reset this browser's profile and progress? This will not delete entries already in Google Sheets.")){localStorage.removeItem(STORAGE_KEY);location.reload()}
+});
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");const target=document.getElementById(b.dataset.target);target.scrollIntoView({behavior:"smooth",block:"start"});document.getElementById("crumbTitle").textContent=b.textContent.trim();
+}));
+document.getElementById("mobileNavBtn").addEventListener("click",()=>{
+ const choice=prompt("Go to: 1 Dashboard, 2 Learning modules, 3 Quiz, 4 Official links, 5 PDF password helper, 6 FAQ");
+ const map={"1":"overview","2":"learning","3":"quizSection","4":"quickLinks","5":"passwordTool","6":"faqSection"};if(map[choice])document.getElementById(map[choice]).scrollIntoView({behavior:"smooth"});
+});
+try{const s=localStorage.getItem(STORAGE_KEY);if(s){profile=JSON.parse(s);if(profile&&profile.fullName&&Array.isArray(profile.completedModules))render()}}catch(e){localStorage.removeItem(STORAGE_KEY)}
+</script>
+</body></html>
