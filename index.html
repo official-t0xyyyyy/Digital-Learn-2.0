@@ -251,6 +251,73 @@
 @media(max-width:1000px){.sidebar{width:220px}.main{margin-left:220px}.module-grid{grid-template-columns:repeat(2,1fr)}.register-screen{grid-template-columns:1fr 1fr;padding:25px}.register-hero h1{font-size:3rem}}
 @media(max-width:760px){.sidebar{display:none}.main{margin-left:0}.mobilebar{display:flex}.content{padding:20px 4% 40px}.register-screen{grid-template-columns:1fr;padding:22px 5%;gap:20px}.register-hero{padding:12px 0}.register-hero h1{font-size:2.8rem}.register-hero .features{grid-template-columns:1fr 1fr}.form-card{max-width:none}.topline{margin-bottom:15px}.module-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
 @media(max-width:480px){.module-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}.welcome{padding:23px}.avatar{width:52px;height:52px;border-radius:16px;font-size:1.3rem}.register-hero h1{font-size:2.4rem}.register-hero .features{grid-template-columns:1fr}.top-actions .user-chip{display:none}.section-head{align-items:flex-start;flex-direction:column}}
+
+/* Digital Learn 2.0 responsive layout */
+@media (min-width: 1200px) {
+  .register-screen {
+    grid-template-columns:
+      minmax(260px, 0.95fr)
+      minmax(220px, 0.8fr)
+      minmax(320px, 0.95fr);
+  }
+}
+
+@media (max-width: 1199px) {
+  .register-screen {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .register-hero {
+    grid-column: 1;
+  }
+
+  .hero-illustration {
+    display: none;
+  }
+
+  .form-card {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .register-screen {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px 5%;
+    gap: 24px;
+  }
+
+  .register-hero,
+  .hero-illustration,
+  .form-card {
+    grid-column: 1;
+  }
+
+  .hero-illustration {
+    display: grid;
+    padding: 0;
+  }
+
+  .service-visual {
+    min-height: 280px;
+  }
+
+  .visual-card {
+    max-width: 260px;
+  }
+
+  .register-hero h1 {
+    font-size: clamp(2.3rem, 8vw, 3.2rem);
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 520px;
+    justify-self: center;
+  }
+}
+
 </style>
 </head>
 <body>
