@@ -130,61 +130,221 @@ document
     }
     closeModule();
   });
-document.getElementById("quizForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  if (!profile) {
-    toast("Please register before taking the quiz.");
-    return;
+const quizAnswers = {
+  q1: {
+    answer: "a",
+    text: "DigiLocker",
+    explanation: "DigiLocker lets people access digital documents issued by participating organisations."
+  },
+  q2: {
+    answer: "b",
+    text: "Keep the OTP private and use it only in a trusted official flow",
+    explanation: "An OTP is a security code that should never be shared with callers or strangers."
+  },
+  q3: {
+    answer: "a",
+    text: "UIDAI's official website",
+    explanation: "UIDAI is the official source for Aadhaar services and information."
+  },
+  q4: {
+    answer: "a",
+    text: "Tax-related and specified financial identification",
+    explanation: "PAN is used to identify taxpayers and is required for specified financial transactions."
+  },
+  q5: {
+    answer: "b",
+    text: "Avoid the link and visit the official website directly",
+    explanation: "Unexpected links may be fraudulent, so use a trusted official website instead."
+  },
+  q6: {
+    answer: "a",
+    text: "Check the recipient and consent screen",
+    explanation: "Checking the recipient and permissions helps prevent documents from being shared with the wrong person."
+  },
+  q7: {
+    answer: "b",
+    text: "The official Income Tax portal or an authorised PAN service provider",
+    explanation: "Use official government services or authorised providers for PAN-related applications."
+  },
+  q8: {
+    answer: "a",
+    text: "Keep the OTP private and do not share it",
+    explanation: "Sharing an OTP can allow someone else to access or authorise an action on your account."
+  },
+  q9: {
+    answer: "b",
+    text: "Check the official portal for requirements and fees",
+    explanation: "Official instructions help you follow the correct process and avoid misleading services."
+  },
+  q10: {
+    answer: "a",
+    text: "The first four letters of the name in uppercase plus the birth year",
+    explanation: "The commonly used e-Aadhaar PDF password format combines the first four letters of the name in uppercase with the year of birth."
   }
+};
 
-  const f = new FormData(e.target);
+const quizForm = document.getElementById("quizForm");
+const quizActions = document.getElementById("quizActions");
+const quizResult = document.getElementById("quizResult");
+const quizReviewModal = document.getElementById("quizReviewModal");
+const quizReviewContent = document.getElementById("quizReviewContent");
 
-  const answers = {
-    q1: "a",
-    q2: "b",
-    q3: "a",
-    q4: "a",
-    q5: "b",
-    q6: "a",
-    q7: "b",
-    q8: "a",
-    q9: "b",
-    q10: "a",
-  };
+let quizSubmitted = false;
 
+function closeQuizReview() {
+  quizReviewModal.classList.add("hidden");
+}
+
+document.getElementById("closeQuizReview").addEventListener(
+  "click",
+  closeQuizReview
+);
+
+document.getElementById("closeQuizReviewBottom").addEventListener(
+  "click",
+  closeQuizReview
+);
+
+// Close the popup when clicking the dark background.
+quizReviewModal.addEventListener("click", (event) => {
+  if (event.target === quizReviewModal) {
+    closeQuizReview();
+  }
+});
+
+// Also allow the Escape key to close the popup.
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" &&
+      !quizReviewModal.classList.contains("hidden")) {
+    closeQuizReview();
+  }
+});
+
+quizForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (quizSubmitted) return;
+
+  const formData = new FormData(quizForm);
+  const total = Object.keys(quizAnswers).length;
   let score = 0;
 
-  for (const [question, correctAnswer] of Object.entries(answers)) {
-    if (f.get(question) === correctAnswer) {
+  for (const [question, details] of Object.entries(quizAnswers)) {
+    if (formData.get(question) === details.answer) {
       score++;
     }
   }
 
-  const total = Object.keys(answers).length;
+  quizSubmitted = true;
 
+  // Lock the answers after submission.
+  quizForm.querySelectorAll('input[type="radio"]').forEach((input) => {
+    input.disabled = true;
+  });
+
+  // Replace Submit Quiz with the two new actions.
+  quizActions.innerHTML = `
+    <button class="btn" type="button" id="reviewAnswers">
+      Review Answers
+    </button>
+    <button class="btn" type="button" id="tryAgain">
+      Try Again
+    </button>
+  `;
+
+  quizResult.className = "result";
+  quizResult.textContent =
+    `You scored ${score} out of ${total}. ` +
+    (score === total
+      ? "Excellent work!"
+      : score >= 7
+      ? "Good job! Review the answers to improve further."
+      : "Review the answers and explanations, then try again.");
+
+  // Update the dashboard score.
   profile.latestScore = score;
   save();
   progress();
 
-  const r = document.getElementById("quizResult");
-  r.className = "result";
-  r.textContent = `You scored ${score} out of ${total}. ${
-    score === total
-      ? "Excellent work! You have a strong understanding of digital services."
-      : score >= 7
-        ? "Good job! Review the topics you missed to strengthen your knowledge."
-        : "Keep learning! Review the modules and try again."
-  }`;
+  // Build the review content, but do not show it yet.
+  quizReviewContent.replaceChildren();
 
-  await sendToSheet({
-    type: "quiz_score",
-    fullName: profile.fullName,
-    score,
-    total,
-    submittedAt: new Date().toISOString(),
+  Object.entries(quizAnswers).forEach(([question, details], index) => {
+    const selected = formData.get(question);
+    const isCorrect = selected === details.answer;
+
+    const card = document.createElement("section");
+    card.className = "quiz-review-item";
+
+    const heading = document.createElement("h3");
+    heading.textContent = `Question ${index + 1}`;
+
+    const status = document.createElement("p");
+    status.className = isCorrect
+      ? "quiz-review-status correct"
+      : "quiz-review-status incorrect";
+    status.textContent = isCorrect
+      ? "✓ Your answer was correct"
+      : "✗ Your answer was incorrect";
+
+    const answer = document.createElement("p");
+    answer.className = "quiz-review-answer";
+    answer.textContent = `Correct answer: ${details.text}`;
+
+    const explanation = document.createElement("p");
+    explanation.className = "quiz-review-explanation";
+    explanation.textContent = details.explanation;
+
+    card.append(heading, status, answer, explanation);
+    quizReviewContent.appendChild(card);
   });
+
+  // Review opens the separate scrollable popup.
+  document.getElementById("reviewAnswers").addEventListener("click", () => {
+    quizReviewModal.classList.remove("hidden");
+    quizReviewContent.scrollTop = 0;
+    document.getElementById("closeQuizReview").focus();
+  });
+
+  // Try Again resets the quiz for another attempt.
+  document.getElementById("tryAgain").addEventListener("click", () => {
+    quizForm.reset();
+
+    quizForm.querySelectorAll('input[type="radio"]').forEach((input) => {
+      input.disabled = false;
+    });
+
+    quizSubmitted = false;
+    closeQuizReview();
+    quizReviewContent.replaceChildren();
+
+    quizResult.textContent = "";
+    quizResult.className = "";
+
+    quizActions.innerHTML = `
+      <button class="btn" type="submit" id="submitQuiz">
+        Submit Quiz
+      </button>
+    `;
+
+    quizForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // Send the result once per submitted attempt.
+  try {
+    await sendToSheet({
+      type: "quiz_score",
+      fullName: profile.fullName,
+      score: score,
+      total: total,
+      submittedAt: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("Could not submit quiz score to Google Sheets:", error);
+  }
 });
+
 document.getElementById("generatePassword").addEventListener("click", () => {
   const name = document.getElementById("aadhaarName").value.trim(),
     year = document.getElementById("birthYear").value.trim(),
