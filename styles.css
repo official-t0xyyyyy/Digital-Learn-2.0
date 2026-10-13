@@ -866,6 +866,128 @@ a:hover {
   cursor: pointer;
   height: 38px;
 }
+
+/* Quiz review popup */
+.quiz-review-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.quiz-review-modal.hidden {
+  display: none;
+}
+
+.quiz-review-window {
+  display: flex;
+  flex-direction: column;
+  width: min(700px, 100%);
+  max-height: min(85vh, 760px);
+  background: var(--card, #fff);
+  color: var(--text, #222);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-review-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border, #ddd);
+}
+
+.quiz-review-header h2 {
+  margin: 0 0 6px;
+}
+
+.quiz-review-header p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.quiz-review-close {
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.quiz-review-content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px 20px;
+}
+
+.quiz-review-item {
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border, #ddd);
+  border-radius: 12px;
+}
+
+.quiz-review-item:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-review-item h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.quiz-review-item p {
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.quiz-review-status.correct {
+  color: #16803d;
+}
+
+.quiz-review-status.incorrect {
+  color: #c0392b;
+}
+
+.quiz-review-answer {
+  font-weight: 600;
+}
+
+.quiz-review-explanation {
+  opacity: 0.9;
+}
+
+.quiz-review-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border, #ddd);
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 520px) {
+  .quiz-review-modal {
+    padding: 10px;
+  }
+
+  .quiz-review-window {
+    max-height: 90vh;
+  }
+
+  .quiz-review-header,
+  .quiz-review-content {
+    padding: 14px;
+  }
+}
+
 @media (max-width: 1000px) {
   .sidebar {
     width: 220px;
