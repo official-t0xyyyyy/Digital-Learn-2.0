@@ -60,6 +60,7 @@ function render() {
     .charAt(0)
     .toUpperCase();
   document.getElementById("userChipName").textContent = first;
+  document.getElementById("dropdownFirstName").textContent = first;
   progress();
 }
 function progress() {
@@ -98,27 +99,51 @@ document
     await sendToSheet({ type: "registration", ...profile });
     toast("Welcome to Digital Learn 2.0!");
   });
+const moduleOrder = ["digilocker", "aadhaar", "pan"];
+
 function openModule(id) {
+  if (!modules[id]) return;
+
   currentModule = id;
-  const m = modules[id];
-  document.getElementById("modalTitle").textContent = m.title;
-  document.getElementById("modalBody").innerHTML = m.body;
-  document.getElementById("completeModule").textContent =
-    profile.completedModules.includes(id) ?
-      "Module completed ✓"
-    : "Mark module complete ✓";
+
+  const moduleData = modules[id];
+  document.getElementById("modalTitle").textContent = moduleData.title;
+  document.getElementById("modalBody").innerHTML = moduleData.body;
+
+  const index = moduleOrder.indexOf(id);
+  const nextButton = document.getElementById("completeModule");
+
+  nextButton.textContent =
+    index === moduleOrder.length - 1
+      ? "Finish Learning ✓"
+      : "Next Module →";
+
   document.getElementById("moduleModal").classList.remove("hidden");
 }
+
 function closeModule() {
   document.getElementById("moduleModal").classList.add("hidden");
 }
+
+document
+  .getElementById("closeModuleBtn")
+  .addEventListener("click", closeModule);
+
 document
   .getElementById("completeModule")
   .addEventListener("click", async () => {
-    if (!profile.completedModules.includes(currentModule)) {
+    const currentIndex = moduleOrder.indexOf(currentModule);
+
+    if (currentIndex === -1) return;
+
+    const wasCompleted =
+      profile.completedModules.includes(currentModule);
+
+    if (!wasCompleted) {
       profile.completedModules.push(currentModule);
       save();
       progress();
+
       await sendToSheet({
         type: "module_completion",
         fullName: profile.fullName,
@@ -126,9 +151,14 @@ document
         completedAt: new Date().toISOString(),
         completedModules: profile.completedModules.join(","),
       });
-      toast("Module marked complete!");
     }
-    closeModule();
+
+    if (currentIndex < moduleOrder.length - 1) {
+      openModule(moduleOrder[currentIndex + 1]);
+    } else {
+      closeModule();
+      toast("Congratulations! You completed all learning modules.");
+    }
   });
 
 const quizAnswers = {
@@ -369,42 +399,76 @@ document.getElementById("copyPassword").addEventListener("click", async () => {
     toast("Copy unavailable here. Select the password and copy it manually.");
   }
 });
-document.getElementById("resetProfile").addEventListener("click", () => {
+const profileToggle = document.getElementById("profileToggle");
+const profileDropdown = document.getElementById("profileDropdown");
+const dropdownFirstName = document.getElementById("dropdownFirstName");
+
+profileToggle.addEventListener("click", () => {
+  const isOpen = profileDropdown.classList.toggle("hidden") === false;
+
+  profileToggle.setAttribute("aria-expanded", String(isOpen));
+
+  const firstName =
+    profile && profile.fullName
+      ? profile.fullName.trim().split(/\s+/)[0]
+      : "Learner";
+
+  dropdownFirstName.textContent = firstName;
+});
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".profile-menu")) {
+    profileDropdown.classList.add("hidden");
+    profileToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
   if (
     confirm(
-      "Reset this browser's profile and progress? This will not delete entries already in Google Sheets.",
+      "Log out and clear this browser's profile and learning progress? Existing Google Sheet entries will not be deleted."
     )
   ) {
     localStorage.removeItem(STORAGE_KEY);
     location.reload();
   }
 });
-document.querySelectorAll(".nav button").forEach((b) =>
-  b.addEventListener("click", () => {
-    document
-      .querySelectorAll(".nav button")
-      .forEach((x) => x.classList.remove("active"));
-    b.classList.add("active");
-    const target = document.getElementById(b.dataset.target);
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    document.getElementById("crumbTitle").textContent = b.textContent.trim();
-  }),
-);
-document.getElementById("mobileNavBtn").addEventListener("click", () => {
-  const choice = prompt(
-    "Go to: 1 Dashboard, 2 Learning modules, 3 Quiz, 4 Official links, 5 PDF password helper, 6 FAQ",
-  );
-  const map = {
-    1: "overview",
-    2: "learning",
-    3: "quizSection",
-    4: "quickLinks",
-    5: "passwordTool",
-    6: "faqSection",
-  };
-  if (map[choice])
-    document.getElementById(map[choice]).scrollIntoView({ behavior: "smooth" });
+
+const nav = document.querySelector(".nav");
+const mobileNavBtn = document.getElementById("mobileNavBtn");
+const navButtons = document.querySelectorAll(".nav button");
+
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    navButtons.forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+
+    const target = document.getElementById(button.dataset.target);
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    const crumbTitle = document.getElementById("crumbTitle");
+    if (crumbTitle) {
+      crumbTitle.textContent = button.textContent.trim();
+    }
+
+    // Close the mobile menu after choosing a section.
+    nav.classList.remove("nav-open");
+    mobileNavBtn.setAttribute("aria-expanded", "false");
+  });
 });
+
+mobileNavBtn.addEventListener("click", () => {
+  const isOpen = nav.classList.toggle("nav-open");
+
+  mobileNavBtn.setAttribute("aria-expanded", String(isOpen));
+});
+
 try {
   const s = localStorage.getItem(STORAGE_KEY);
   if (s) {
