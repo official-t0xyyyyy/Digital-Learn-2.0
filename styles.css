@@ -1145,3 +1145,483 @@ a:hover {
     justify-self: center;
   }
 }
+
+/* Single-row top navigation for Digital Learn 2.0 */
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 24px);
+  min-height: 82px;
+  padding: 12px clamp(16px, 2.5vw, 36px);
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(16, 29, 53, 0.12);
+}
+.navbar-brand {
+  flex: 0 0 auto;
+  padding: 0;
+  text-decoration: none;
+  font-size: 1.02rem;
+  white-space: nowrap;
+}
+.navbar-brand:hover {
+  text-decoration: none;
+}
+.navbar-brand .brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+.navbar-brand small {
+  font-size: 0.58rem;
+}
+.app-navbar .nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 3px;
+}
+.app-navbar .nav button {
+  justify-content: center;
+  gap: 7px;
+  padding: 10px clamp(7px, 0.8vw, 12px);
+  border-radius: 10px;
+  color: #c6d5e9;
+  white-space: nowrap;
+  font-size: clamp(0.74rem, 0.85vw, 0.88rem);
+}
+.app-navbar .nav button:hover,
+.app-navbar .nav button.active {
+  background: #20395e;
+  color: #fff;
+}
+.app-navbar .nav button.active .nav-ico {
+  color: var(--teal);
+}
+.app-navbar .nav-ico {
+  width: auto;
+  font-size: 1rem;
+}
+.navbar-profile {
+  flex: 0 0 auto;
+  margin-left: auto;
+  background: #fff;
+  color: var(--ink);
+  border: 0;
+  padding: 5px 11px 5px 5px;
+}
+.menu-toggle {
+  display: none;
+}
+.main {
+  margin-left: 0;
+}
+.content {
+  width: min(1450px, 100%);
+}
+#overview,
+#learning,
+#quizSection,
+#quickLinks,
+#passwordTool,
+#faqSection {
+  scroll-margin-top: 100px;
+}
+.profile-menu {
+  position: relative;
+}
+
+.profile-toggle {
+  cursor: pointer;
+  font: inherit;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 190px;
+  padding: 8px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px #00000018;
+  z-index: 1000;
+}
+
+.profile-dropdown.hidden {
+  display: none;
+}
+
+.profile-dropdown-name {
+  padding: 10px 12px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.profile-logout {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #c0392b;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.profile-logout:hover {
+  background: #fff0ee;
+}
+/* Profile chip animation */
+.profile-toggle {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+  transform-origin: center;
+}
+
+/* Gentle lift on hover */
+.profile-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(20, 45, 80, 0.16);
+}
+
+/* Soft avatar pop */
+.profile-toggle .mini-avatar {
+  transition: transform 0.25s ease;
+}
+
+.profile-toggle:hover .mini-avatar {
+  transform: scale(1.09) rotate(-5deg);
+}
+
+/* Small press feedback */
+.profile-toggle:active {
+  transform: scale(0.97);
+}
+
+/* Highlight the chip while the dropdown is open */
+.profile-toggle[aria-expanded="true"] {
+  box-shadow: 0 0 0 3px rgba(39, 201, 184, 0.22);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .profile-toggle,
+  .profile-toggle .mini-avatar {
+    transition: none;
+  }
+
+  .profile-toggle:hover,
+  .profile-toggle:hover .mini-avatar,
+  .profile-toggle:active {
+    transform: none;
+  }
+}
+/* =================================
+   PROFILE CHIP — FLOAT + GLOW
+================================= */
+
+.profile-menu {
+  position: relative;
+  z-index: 1001;
+}
+
+/* Gentle continuous floating */
+@keyframes profileFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Soft breathing glow when hovered */
+@keyframes profileGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px rgba(39, 201, 184, 0.12),
+      0 0 10px rgba(39, 201, 184, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(39, 201, 184, 0.28),
+      0 0 22px rgba(39, 201, 184, 0.38);
+  }
+}
+
+.profile-toggle {
+  position: relative;
+  isolation: isolate;
+  animation: profileFloat 3s ease-in-out infinite;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Light spreads around the chip on hover */
+.profile-toggle:hover,
+.profile-toggle:focus-visible {
+  border-color: #27c9b8;
+  animation:
+    profileFloat 3s ease-in-out infinite,
+    profileGlow 1.8s ease-in-out infinite;
+  outline: none;
+}
+
+/* Small avatar movement */
+.profile-toggle .mini-avatar {
+  transition: transform 0.3s ease;
+}
+
+.profile-toggle:hover .mini-avatar {
+  transform: scale(1.08) rotate(-5deg);
+}
+
+/* =================================
+   DROPDOWN — POPUP ANIMATION
+================================= */
+
+@keyframes profileDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-9px) scale(0.96);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.profile-dropdown {
+  transform-origin: top right;
+  box-shadow:
+    0 14px 35px rgba(12, 28, 53, 0.16),
+    0 0 0 1px rgba(39, 201, 184, 0.08);
+}
+
+/* Animate only when the dropdown becomes visible */
+.profile-dropdown:not(.hidden) {
+  animation: profileDropdownIn 0.24s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Highlight chip while dropdown is open */
+.profile-toggle[aria-expanded="true"] {
+  border-color: #27c9b8;
+  box-shadow: 0 0 0 3px rgba(39, 201, 184, 0.22);
+}
+
+/* Pause floating while the menu is open */
+.profile-toggle[aria-expanded="true"] {
+  animation-play-state: paused;
+}
+
+/* Logout hover feedback */
+.profile-logout {
+  transition:
+    background-color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.profile-logout:hover {
+  padding-left: 16px;
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .profile-toggle,
+  .profile-toggle:hover,
+  .profile-toggle:focus-visible,
+  .profile-toggle .mini-avatar,
+  .profile-dropdown:not(.hidden) {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+}
+/* Fix profile name visibility */
+.profile-toggle,
+.profile-toggle #userChipName,
+.profile-dropdown-name {
+  color: #14233d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-text-fill-color: #14233d;
+}
+
+.profile-toggle #userChipName {
+  display: inline-block !important;
+  user-select: none;
+}
+
+.profile-dropdown-name {
+  display: block;
+  background: transparent;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .app-navbar {
+    gap: 12px;
+  }
+  .app-navbar .nav button {
+    gap: 5px;
+    padding: 9px 7px;
+    font-size: 0.76rem;
+  }
+  .app-navbar .nav-ico {
+    display: none;
+  }
+  .navbar-brand {
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 850px) {
+  .app-navbar {
+    min-height: 72px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 4%;
+  }
+  .navbar-brand {
+    margin-right: auto;
+  }
+  .navbar-profile {
+    margin-left: 0;
+  }
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #ffffff30;
+    border-radius: 10px;
+    padding: 9px 12px;
+    background: #20395e;
+    color: #fff;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .menu-toggle-lines {
+    font-size: 1.1rem;
+  }
+  .app-navbar .nav {
+    display: none;
+    order: 4;
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 8px 0 2px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .app-navbar .nav.nav-open {
+    display: flex;
+  }
+  .app-navbar .nav button {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    padding: 11px 13px;
+  }
+  .app-navbar .nav-ico {
+    display: inline-block;
+    width: 22px;
+  }
+  .content {
+    padding: 20px 4% 40px;
+  }
+}
+.module-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.module-modal-actions #completeModule {
+  min-width: 155px;
+}
+
+.module-modal-actions #closeModuleBtn {
+  padding: 10px 18px;
+}
+
+@media (max-width: 480px) {
+  .module-modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .module-modal-actions #completeModule,
+  .module-modal-actions #closeModuleBtn {
+    width: 100%;
+  }
+}
+/* Mobile navigation menu */
+#mobileNavBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #mobileNavBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav.nav-open {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .nav button {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 0.9rem;
+    gap: 8px;
+  }
+  .navbar-brand .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+  .navbar-brand small {
+    font-size: 0.52rem;
+  }
+  .navbar-profile {
+    padding: 4px;
+  }
+  .navbar-profile #userChipName {
+    display: none;
+  }
+  .navbar-profile .mini-avatar {
+    width: 34px;
+    height: 34px;
+  }
+}
