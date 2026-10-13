@@ -118,55 +118,40 @@
   </section>
 
   <div id="app" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand">
-        <span class="brand-mark">DL</span><span>Digital Learn 2.0<small>LEARN · PRACTISE · GROW</small></span>
-      </div>
-      <div class="nav-label">Workspace</div>
-      <nav class="nav" aria-label="Main navigation">
-        <button class="active" data-target="overview">
-          <span class="nav-ico">⌂</span>Dashboard
-        </button>
-        <button data-target="learning">
-          <span class="nav-ico">▣</span>Learning modules
-        </button>
-        <button data-target="quizSection">
-          <span class="nav-ico">✓</span>Knowledge quiz
-        </button>
-        <button data-target="quickLinks">
-          <span class="nav-ico">↗</span>Official quick links
-        </button>
-        <button data-target="passwordTool">
-          <span class="nav-ico">⌑</span>PDF password helper
-        </button>
-        <button data-target="faqSection">
-          <span class="nav-ico">?</span>Help & FAQ
-        </button>
+    <header class="app-navbar">
+      <a class="brand navbar-brand" href="#overview" aria-label="Digital Learn 2.0 home">
+        <span class="brand-mark">DL</span>
+        <span>Digital Learn 2.0<small>LEARN · PRACTISE · GROW</small></span>
+      </a>
+      <button class="menu-toggle" id="mobileNavBtn" type="button" aria-expanded="false" aria-controls="mainNav">
+        <span class="menu-toggle-lines" aria-hidden="true">☰</span><span>Menu</span>
+      </button>
+      <nav class="nav" id="mainNav" aria-label="Main navigation">
+        <button class="active" data-target="overview"><span class="nav-ico">⌂</span>Dashboard</button>
+        <button data-target="learning"><span class="nav-ico">▣</span>Modules</button>
+        <button data-target="quizSection"><span class="nav-ico">✓</span>Quiz</button>
+        <button data-target="quickLinks"><span class="nav-ico">↗</span>Official links</button>
+        <button data-target="passwordTool"><span class="nav-ico">⌑</span>PDF helper</button>
+        <button data-target="faqSection"><span class="nav-ico">?</span>Help & FAQ</button>
       </nav>
-      <div class="sidebar-bottom">
-        Learn safely. Use official portals for actual services.<br /><span class="safe-pill">● Privacy-first
-          learning</span>
+      <div class="profile-menu">
+        <button class="user-chip profile-toggle" id="profileToggle" type="button" 
+        aria-expanded="false" aria-controls="profileDropdown">
+          <span class="mini-avatar" id="miniAvatar">A</span>
+          <span id="userChipName">Learner</span>
+          <span aria-hidden="true"></span>
+        </button>
+      
+        <div class="profile-dropdown hidden" id="profileDropdown">
+          <div class="profile-dropdown-name" id="dropdownFirstName">Learner</div>
+          <button class="profile-logout" id="logoutBtn" type="button">
+            ↪ Logout
+          </button>
+        </div>
       </div>
-    </aside>
+    </header>
     <div class="main">
-      <div class="mobilebar">
-        <div class="brand">
-          <span class="brand-mark">DL</span> Digital Learn 2.0
-        </div>
-        <button class="btn" id="mobileNavBtn">Navigate ↓</button>
-      </div>
       <div class="content">
-        <div class="topline">
-          <div class="crumb">
-            Learning space / <strong id="crumbTitle">Dashboard</strong>
-          </div>
-          <div class="top-actions">
-            <span class="small">Your personal learning space</span>
-            <div class="user-chip">
-              <span class="mini-avatar" id="miniAvatar">A</span><span id="userChipName">Learner</span>
-            </div>
-          </div>
-        </div>
         <section id="overview">
           <div class="welcome">
             <div>
@@ -507,19 +492,6 @@
             </details>
           </div>
         </section>
-        <div style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 12px;
-              margin-top: 24px;
-              flex-wrap: wrap;
-            ">
-          <span class="small" id="sheetStatus">Google Sheets: not configured</span><button class="text-btn"
-            id="resetProfile" type="button">
-            Sign out / reset this browser
-          </button>
-        </div>
         <footer class="footer">
           © 2026 Digital Learn 2.0 · Educational demo only. Not a government
           service provider. Check current processes and fees on official
@@ -540,12 +512,18 @@
         </button>
       </div>
       <div id="modalBody"></div>
-      <button class="btn" id="completeModule" type="button">
-        Mark module complete ✓
-      </button>
+      <div class="module-modal-actions">
+        <button class="btn" id="completeModule" type="button">
+          Next Module →
+        </button>
+        <button class="text-btn" id="closeModuleBtn" type="button">
+          Close
+        </button>
+      </div>
     </div>
   </div>
   <div id="toast" class="toast hidden" role="status"></div>
   <script src="script.js"></script>
 </body>
+
 </html>
