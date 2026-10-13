@@ -362,9 +362,32 @@
                 <input type="radio" name="q10" value="b" />
                 The mobile number followed by the PIN code
               </label>
-              <button class="btn" type="submit">Submit quiz</button>
+              <div id="quizActions">
+                <button class="btn" type="submit" id="submitQuiz">Submit quiz</button>
+              </div>
               <div id="quizResult" aria-live="polite"></div>
             </form>
+            <div id="quizReviewModal" class="quiz-review-modal hidden"
+                 role="dialog" aria-modal="true" aria-labelledby="quizReviewTitle">
+              <div class="quiz-review-window">
+                <div class="quiz-review-header">
+                  <div>
+                    <h2 id="quizReviewTitle">Review Answers</h2>
+                    <p>Check the correct answers and learn why they are correct.</p>
+                  </div>
+                  <button type="button" id="closeQuizReview"
+                          class="quiz-review-close" aria-label="Close review">
+                    &times;
+                  </button>
+                </div>
+                <div id="quizReviewContent" class="quiz-review-content"></div>
+                <div class="quiz-review-footer">
+                  <button type="button" id="closeQuizReviewBottom" class="btn">
+                    Close Review
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section id="quickLinks">
